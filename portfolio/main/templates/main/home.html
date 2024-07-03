@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khuzaima Abid - Personal Portfolio</title>
+    <link rel="stylesheet" href="{% static 'main/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/custom.css' %}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Khuzaima Abid</a>
+            <div class="navbar-nav ml-auto">
+                <a class="nav-item nav-link" href="#education">Education</a>
+                <a class="nav-item nav-link" href="#skills">Skills</a>
+                <a class="nav-item nav-link" href="#experience">Experience</a>
+                <a class="nav-item nav-link" href="#projects">Projects</a>
+                <a class="nav-item nav-link" href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <img src="{% static 'main/images/profile-picture.jpg' %}" alt="Khuzaima Abid">
+            <h1>Khuzaima Abid</h1>
+            <p>Full Stack Developer and Student at the University of Management and Technology</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Education Section -->
+    <section id="education">
+        <div class="container">
+            <h2>Education</h2>
+            <ul>
+                {% for edu in education %}
+                    <li>{{ edu.degree }} from {{ edu.institution }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <h2>Skills</h2>
+            <div class="row">
+                {% for skill in skills %}
+                    <div class="col-md-4">
+                        <div class="skill-card">
+                            <h4>{{ skill.name }}</h4>
+                            <p>Proficiency: {{ skill.proficiency }}%</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="container">
+            <h2>Experience</h2>
+            <div class="row">
+                {% for exp in experiences %}
+                    <div class="col-md-6">
+                        <h4>{{ exp.job_title }}</h4>
+                        <h5>{{ exp.company }}</h5>
+                        <p>{{ exp.start_date|date:"F Y" }} - {{ exp.end_date|date:"F Y" }}</p>
+                        <p>{{ exp.description }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2>Projects</h2>
+            <div class="row">
+                {% for project in projects %}
+                    <div class="col-md-4">
+                        <div class="project-card">
+                            <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                            <h4>{{ project.title }}</h4>
+                            <p>{{ project.description }}</p>
+                            <a href="{{ project.link }}" class="btn btn-primary">Explore More</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2>Contact</h2>
+            <p>Phone: +923084612146</p>
+            <p>Email: Khuzaima_abid@Live.com</p>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#contactModal">Contact Me</button>
+        </div>
+    </section>
+
+    <!-- Contact Modal -->
+    <div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contactModalLabel">Contact Form</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="{{ form.name.id_for_label }}">Name</label>
+                            {{ form.name }}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.email.id_for_label }}">Email</label>
+                            {{ form.email }}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.message.id_for_label }}">Message</label>
+                            {{ form.message }}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Khuzaima Abid. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{% static 'main/js/jquery-3.5.1.slim.min.js' %}"></script>
+    <script src="{% static 'main/js/popper.min.js' %}"></script>
+    <script src="{% static 'main/js/bootstrap.min.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
